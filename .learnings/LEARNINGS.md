@@ -100,3 +100,42 @@ Docker build fails on Apple Silicon due to platform mismatch
 - Tags: architecture, task-execution, monitoring, self-improvement
 
 ---
+
+## [LRN-20260313-003] best_practice
+
+**Logged**: 2026-03-13T15:25:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Git clone 大型仓库时网络不稳定，需要优化配置和重试机制
+
+### Details
+**问题**：
+- 克隆 vllm 等大型仓库时，HTTPS 方式经常超时
+- 错误：`RPC failed; curl 28 Failed to connect to github.com port 443 after 134438 ms`
+
+**解决方案**：
+1. **优先使用 SSH**：SSH 方式比 HTTPS 更稳定
+   - 已生成 `~/.ssh/id_ed25519` 并添加到 GitHub
+   - URL 转换：`https://github.com/user/repo.git` → `git@github.com:user/repo.git`
+
+2. **优化 Git 配置**：
+   ```bash
+   git config --global http.postBuffer 524288000
+   git config --global http.lowSpeedLimit 0
+   git config --global http.lowSpeedTime 999999
+   git config --global core.compression 0
+   ```
+
+3. **使用浅克隆**：`--depth 1` 减少传输量
+
+4. **重试脚本**：`scripts/git-clone-stable.sh` 自动重试 3 次
+
+### Metadata
+- Source: troubleshooting
+- Tags: git, network, stability, github
+- Related Files: scripts/git-clone-stable.sh, TOOLS.md
+
+---
