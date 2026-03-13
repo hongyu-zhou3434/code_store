@@ -2,3 +2,6 @@ projects/vllm/
 
 # Secrets - 加密的 API Keys
 secrets/
+output/*.docx
+output/*.xlsx
+output/*.pptx
