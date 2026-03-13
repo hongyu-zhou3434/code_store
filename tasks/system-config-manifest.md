@@ -117,7 +117,32 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 7. 目录结构
+## 7. Find-Skills 技能发现
+
+| 配置项 | 状态 | 说明 |
+|--------|------|------|
+| find-skills | ✅ 已安装 | 自动发现和推荐技能 |
+| skills CLI | ✅ 可用 | v1.4.4 |
+| 自动触发 | ✅ 生效 | 所有任务自动应用 |
+
+**搜索优先级**：
+```
+1. skillhub search <关键词>    # 国内优化，优先
+2. npx skills find <关键词>    # skills.sh，备用
+```
+
+**自动触发条件**：
+- 用户问"如何做 X"、"怎么实现 X"
+- 用户问"有没有 X 技能"、"找一个 X 技能"
+- 用户表达扩展能力的需求
+
+**安装前摘要**：必须汇报来源、版本、功能、风险信号
+
+**配置文件**: `AGENTS.md` → Skill Discovery 章节
+
+---
+
+## 8. 目录结构
 
 ```
 ~/workspace/
@@ -145,7 +170,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 8. Hooks 状态
+## 9. Hooks 状态
 
 | Hook | 状态 | 说明 |
 |------|------|------|

@@ -45,6 +45,69 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - When you make a mistake → document it so future-you doesn't repeat it
 - **Text > Brain** 📝
 
+## Skill Discovery (Find-Skills)
+
+**Find-Skills 技能已启用，应用于所有任务。**
+
+### 自动触发条件
+
+当用户表达以下需求时，自动搜索并推荐技能：
+
+- "如何做 X"、"怎么实现 X"
+- "有没有 X 技能"、"找一个 X 技能"
+- "能不能做 X"、"帮我 X"
+- 表达扩展能力的需求
+
+### 搜索优先级
+
+```
+1. skillhub search <关键词>    # 国内优化，优先使用
+2. npx skills find <关键词>    # skills.sh 国际源，备用
+```
+
+### 标准搜索流程
+
+```bash
+# 1. 优先使用 skillhub
+skillhub search "关键词"
+
+# 2. 如无结果或不可用，使用 skills CLI
+npx skills find "关键词"
+
+# 3. 展示结果，询问用户是否安装
+```
+
+### 安装流程
+
+```bash
+# skillhub 安装
+skillhub install <skill-name>
+
+# skills.sh 安装
+npx skills add <owner/repo@skill> -g -y
+```
+
+### 安装前摘要
+
+安装任何技能前，必须汇报：
+
+| 项目 | 内容 |
+|------|------|
+| 来源 | skillhub / skills.sh |
+| 版本 | x.x.x |
+| 功能 | 简要说明 |
+| 风险信号 | 如有 |
+
+### 常用技能类别
+
+| 类别 | 搜索关键词 |
+|------|-----------|
+| Web 开发 | react, nextjs, typescript, css |
+| 测试 | testing, jest, playwright |
+| DevOps | docker, kubernetes, deploy |
+| 文档 | docs, readme, changelog |
+| 代码质量 | review, lint, refactor |
+
 ## Task Execution Architecture
 
 ### 主线程/子线程模式

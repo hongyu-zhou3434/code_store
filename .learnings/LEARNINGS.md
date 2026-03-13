@@ -146,3 +146,37 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 - Related Files: scripts/git-clone-stable.sh, TOOLS.md
 
 ---
+
+## [LRN-20260313-004] best_practice
+
+**Logged**: 2026-03-13T15:45:00+08:00
+**Priority**: medium
+**Status**: resolved
+**Area**: config
+
+### Summary
+Find-Skills 技能已启用，自动应用于所有任务的技能发现
+
+### Details
+**配置内容**：
+1. **自动触发条件**：
+   - 用户问"如何做 X"、"怎么实现 X"
+   - 用户问"有没有 X 技能"
+   - 用户表达扩展能力需求
+
+2. **搜索优先级**：
+   - `skillhub search`（国内优化，优先）
+   - `npx skills find`（skills.sh，备用）
+
+3. **安装前摘要**：必须汇报来源、版本、功能、风险信号
+
+**已验证**：
+- skills CLI v1.4.4 正常工作
+- skillhub 和 skills find 搜索功能正常
+
+### Metadata
+- Source: user_feedback
+- Tags: skills, discovery, automation
+- Related Files: AGENTS.md, tasks/system-config-manifest.md
+
+---
