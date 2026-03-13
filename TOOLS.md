@@ -43,6 +43,52 @@ Add whatever helps you do your job. This is your cheat sheet.
 
 ## Git Configuration
 
+### ✅ 已验证的标准下载方式
+
+**后续所有代码下载任务必须使用以下方式**：
+
+#### 方式一：SSH 直接克隆（推荐）
+
+```bash
+# 标准格式
+git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
+
+# 示例
+git clone git@github.com:vllm-project/vllm.git projects/vllm --depth 1
+```
+
+**优点**：
+- SSH 认证已配置（`~/.ssh/id_ed25519`）
+- 网络稳定，无需 HTTPS 认证
+- 已验证：6秒完成克隆
+
+#### 方式二：稳定脚本（大型仓库）
+
+```bash
+# 标准格式
+./scripts/git-clone-stable.sh https://github.com/{owner}/{repo}.git {target-dir} [--depth 1]
+
+# 示例
+./scripts/git-clone-stable.sh https://github.com/vllm-project/vllm.git projects/vllm --depth 1
+```
+
+**优点**：
+- 自动重试 3 次
+- SSH 优先，HTTPS 兜底
+- 适合网络不稳定环境
+
+#### URL 转换规则
+
+| HTTPS URL | SSH URL |
+|-----------|---------|
+| `https://github.com/user/repo.git` | `git@github.com:user/repo.git` |
+
+**转换命令**：
+```bash
+# HTTPS 转 SSH
+sed 's|https://github.com/|git@github.com:|'
+```
+
 ### 全局配置
 
 ```bash

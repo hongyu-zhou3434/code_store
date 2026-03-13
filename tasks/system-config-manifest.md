@@ -2,7 +2,7 @@
 
 系统配置清单 - 记录所有已生效的系统级配置
 
-**最后更新**: 2026-03-13 14:45:00 +08:00
+**最后更新**: 2026-03-13 15:35:00 +08:00
 
 ---
 
@@ -71,7 +71,37 @@
 
 ---
 
-## 5. 技能商店策略
+## 5. Git 代码下载
+
+| 配置项 | 状态 | 说明 |
+|--------|------|------|
+| SSH 认证 | ✅ 生效 | `~/.ssh/id_ed25519` 已添加到 GitHub |
+| 下载方式 | ✅ 验证 | SSH 直接克隆（推荐） |
+| 稳定脚本 | ✅ 可用 | `scripts/git-clone-stable.sh` |
+
+**标准下载命令**：
+
+```bash
+# 方式一：SSH 直接克隆（推荐，已验证 6s 完成）
+git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
+
+# 方式二：稳定脚本（大型仓库/网络不稳定）
+./scripts/git-clone-stable.sh https://github.com/{owner}/{repo}.git {target-dir} --depth 1
+```
+
+**URL 转换**：
+- HTTPS: `https://github.com/user/repo.git`
+- SSH: `git@github.com:user/repo.git`
+
+**远程仓库**：
+- 主仓库：`git@github.com:hongyu-zhou3434/code_store.git`
+- 默认分支：`main`
+
+**配置文件**: `TOOLS.md` → Git Configuration 章节
+
+---
+
+## 6. 技能商店策略
 
 | 配置项 | 状态 | 说明 |
 |--------|------|------|
@@ -87,7 +117,7 @@
 
 ---
 
-## 6. 目录结构
+## 7. 目录结构
 
 ```
 ~/workspace/
@@ -115,7 +145,7 @@
 
 ---
 
-## 7. Hooks 状态
+## 8. Hooks 状态
 
 | Hook | 状态 | 说明 |
 |------|------|------|
