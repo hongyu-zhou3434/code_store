@@ -229,3 +229,48 @@ node ~/.openclaw/workspace/skills/tavily-search/scripts/search.mjs "搜索内容
 - 返回简洁、相关的内容
 - 支持新闻、深度搜索模式
 - 提供来源链接和相关度评分
+
+---
+
+## WPS Office Skill
+
+### 配置信息
+
+| 项目 | 值 |
+|------|-----|
+| 技能版本 | 1.3.0 |
+| 默认保存路径 | `output/wps/` |
+| 配置文件 | `skills/wps-skill/config.json` |
+
+### 主要功能
+
+| 功能 | 命令 |
+|------|------|
+| Markdown → Word | `python3 scripts/main.py md_to_docx file=输入.md output=输出.docx` |
+| Markdown → Excel | `python3 scripts/main.py md_to_xlsx file=输入.md output=输出.xlsx` |
+| Markdown → PPT | `python3 scripts/main.py md_to_pptx file=输入.md output=输出.pptx` |
+| Word → Markdown | `python3 scripts/main.py docx_to_md file=输入.docx output=输出.md` |
+| 图片插入 Word | `python3 scripts/main.py insert_image docx=文档.docx image=图片.png` |
+| 图文混排 | `python3 scripts/main.py create_text_image_layout ...` |
+
+### 使用方式
+
+```bash
+cd /root/.openclaw/workspace/skills/wps-skill
+
+# Markdown 转 Word
+python3 scripts/main.py md_to_docx file=文档.md output=文档.docx title="标题"
+
+# 批量转换
+python3 scripts/main.py batch_convert dir=目录 format=pdf
+
+# 创建文档
+python3 scripts/main.py create type=writer filename=新文档.docx
+```
+
+### 注意事项
+
+- 本地文档处理功能无需 WPS 365 凭证
+- WPS 365 云端功能需要配置 `app_id` 和 `app_secret`
+- 图形界面自动化（pyautogui）在无 GUI 环境下不可用
+- 文档格式转换依赖 python-docx、openpyxl、python-pptx

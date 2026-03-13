@@ -6,6 +6,12 @@
       "zip_url": "https://lightmake.site/api/v1/download?slug=self-improving-agent",
       "source": "skillhub",
       "version": "1.0.11"
+    },
+    "wps-skill": {
+      "name": "Wps Skill",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=wps-skill",
+      "source": "skillhub",
+      "version": "1.3.0"
     }
   }
 }

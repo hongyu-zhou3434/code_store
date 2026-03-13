@@ -142,6 +142,24 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
+## 6.7. WPS Office Skill
+
+| 配置项 | 状态 | 说明 |
+|--------|------|------|
+| wps-skill | ✅ 已安装 | v1.3.0 |
+| Python 依赖 | ✅ 已安装 | python-docx, openpyxl, python-pptx |
+| 本地文档处理 | ✅ 可用 | Markdown ↔ Word/Excel/PPT |
+
+**主要功能**：
+- Markdown ↔ Word/Excel/PPT 转换
+- 文档创建与格式转换
+- 图文混排
+- 批量处理
+
+**配置文件**: `TOOLS.md` → WPS Office Skill 章节
+
+---
+
 ## 7. 三技能协作（异常处理）
 
 | 技能 | 职责 |

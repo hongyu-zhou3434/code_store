@@ -1,1 +1,4 @@
 projects/vllm/
+
+# Secrets - 加密的 API Keys
+secrets/
