@@ -101,7 +101,30 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 6. 技能商店策略
+## 6. Summarize 文档总结
+
+| 配置项 | 状态 | 说明 |
+|--------|------|------|
+| summarize 技能 | ✅ 已安装 | v1.0.0 |
+| CLI 工具 | ✅ 已安装 | v0.12.0 |
+| API 配置 | ✅ 已配置 | 阿里云百炼 OpenAI 兼容 |
+| 默认模型 | ✅ 已设置 | qwen3-max-2026-01-23 |
+
+**API 配置**：
+- Base URL: `https://coding.dashscope.aliyuncs.com/v1`
+- 环境变量: `OPENAI_API_KEY`, `OPENAI_BASE_URL`（已配置在 ~/.bashrc）
+
+**支持功能**：
+- 网页总结
+- PDF/文档总结
+- YouTube 视频总结
+- 音频/视频转录总结
+
+**配置文件**: `TOOLS.md` → Summarize CLI 章节
+
+---
+
+## 7. 技能商店策略
 
 | 配置项 | 状态 | 说明 |
 |--------|------|------|
@@ -117,7 +140,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 7. Find-Skills 技能发现
+## 8. Find-Skills 技能发现
 
 | 配置项 | 状态 | 说明 |
 |--------|------|------|
@@ -147,7 +170,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 8. 目录结构
+## 9. 目录结构
 
 ```
 ~/workspace/
@@ -175,7 +198,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 9. Hooks 状态
+## 10. Hooks 状态
 
 | Hook | 状态 | 说明 |
 |------|------|------|

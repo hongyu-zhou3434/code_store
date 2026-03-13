@@ -130,3 +130,68 @@ git config --global core.compression 0           # 禁用压缩加速传输
 | 脚本 | 用途 |
 |------|------|
 | `scripts/git-clone-stable.sh` | 增强 Git 克隆，自动重试，SSH 优先 |
+
+---
+
+## Summarize CLI
+
+### 配置信息
+
+| 项目 | 值 |
+|------|-----|
+| CLI 版本 | 0.12.0 |
+| API Base URL | `https://coding.dashscope.aliyuncs.com/v1` |
+| 默认模型 | `openai/qwen3-max-2026-01-23` |
+| 配置文件 | `~/.summarize/config.json` |
+
+### 环境变量
+
+```bash
+# 已配置在 ~/.bashrc
+export OPENAI_API_KEY="sk-sp-1dfcd6127bfc4033b85aa78f2ed6a995"
+export OPENAI_BASE_URL="https://coding.dashscope.aliyuncs.com/v1"
+```
+
+### 使用方式
+
+```bash
+# 总结网页
+summarize "https://example.com" --length short
+
+# 总结本地文件
+summarize "/path/to/file.pdf"
+summarize "/path/to/document.docx"
+
+# 总结文本（stdin）
+echo "文本内容" | summarize - --length short
+
+# 总结 YouTube 视频
+summarize "https://youtu.be/xxx" --youtube auto
+
+# 指定长度
+summarize "https://example.com" --length medium  # short|medium|long|xl|xxl
+
+# JSON 输出
+summarize "https://example.com" --json
+```
+
+### 可用模型
+
+使用阿里云百炼（DashScope）OpenAI 兼容接口：
+
+| 模型 ID | 说明 |
+|---------|------|
+| `openai/qwen3-max-2026-01-23` | Qwen3 Max（默认） |
+| `openai/qwen3.5-plus` | Qwen3.5 Plus |
+| `openai/qwen3-coder-plus` | Qwen3 Coder Plus |
+| `openai/glm-5` | GLM-5 |
+| `openai/glm-4.7` | GLM-4.7 |
+
+### 配置文件
+
+```json
+// ~/.summarize/config.json
+{
+  "model": "openai/qwen3-max-2026-01-23"
+}
+```
