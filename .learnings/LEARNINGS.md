@@ -287,3 +287,40 @@ WPS Office Skill 默认用于本地文档处理任务
 - Related Files: AGENTS.md, TOOLS.md
 
 ---
+
+## [LRN-20260313-008] best_practice
+
+**Logged**: 2026-03-13T18:45:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: automation
+
+### Summary
+配置每日定时任务，自动生成AI洞察报告
+
+### Details
+**定时任务配置**：
+- 执行时间：每日 19:00
+- Cron 表达式：`0 19 * * *`
+- 脚本：`scripts/daily-insight.sh`
+
+**洞察目标**：
+- 字节跳动、阿里巴巴、腾讯、智谱AI、DeepSeek
+- Google、NVIDIA、MiniMax
+
+**洞察范围**：
+- 模型、算力卡、数据存储、数据加速、Agent/智能体
+
+**自动化流程**：
+1. Cron 触发脚本执行
+2. 使用 Tavily Search 检索最新动态
+3. 生成各公司洞察报告
+4. 生成汇总报告
+5. 清理 30 天前的旧报告
+
+### Metadata
+- Source: user_feedback
+- Tags: automation, cron, daily-task, insight
+- Related Files: scripts/daily-insight.sh, HEARTBEAT.md
+
+---

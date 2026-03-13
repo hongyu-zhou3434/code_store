@@ -2,7 +2,7 @@
 
 系统配置清单 - 记录所有已生效的系统级配置
 
-**最后更新**: 2026-03-13 15:35:00 +08:00
+**最后更新**: 2026-03-13 18:45:00 +08:00
 
 ---
 
@@ -241,7 +241,48 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 10. 目录结构
+## 12. 每日定时任务
+
+### AI洞察报告自动生成
+
+| 配置项 | 值 |
+|------|-----|
+| 执行时间 | 每日 19:00 |
+| Cron 表达式 | `0 19 * * *` |
+| 脚本路径 | `scripts/daily-insight.sh` |
+| 输出目录 | `output/daily-insights/{日期}/` |
+| 归档周期 | 保留最近 30 天 |
+
+**洞察目标公司**：
+- 字节跳动、阿里巴巴、腾讯、智谱AI
+- DeepSeek、Google、NVIDIA、MiniMax
+
+**洞察范围**：
+- 模型发布（LLM、多模态、推理模型）
+- 算力卡（GPU、HBM、NVLink）
+- 数据存储（存储架构、显存优化、KV Cache）
+- 数据加速（推理优化、量化、FlashAttention）
+- Agent/智能体（自主代理、工具调用）
+
+**报告内容**：
+- 核心产品动态
+- 数据存储技术
+- 数据加速技术
+- 技术趋势洞察
+
+**手动执行**：
+```bash
+./scripts/daily-insight.sh
+```
+
+**查看日志**：
+```bash
+tail -f logs/cron-daily-insight.log
+```
+
+---
+
+## 13. 目录结构
 
 ```
 ~/workspace/
@@ -269,7 +310,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 11. Hooks 状态
+## 14. Hooks 状态
 
 | Hook | 状态 | 说明 |
 |------|------|------|

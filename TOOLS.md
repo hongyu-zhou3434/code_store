@@ -357,3 +357,38 @@ python3 arxiv_tool.py list
 - 支持按相关性/日期排序
 - 可下载 PDF
 - 可保存阅读列表
+
+---
+
+## 每日定时任务
+
+### AI洞察报告自动生成
+
+| 项目 | 配置 |
+|------|------|
+| 执行时间 | 每日 19:00 |
+| 脚本路径 | `scripts/daily-insight.sh` |
+| 输出目录 | `output/daily-insights/{日期}/` |
+| 归档周期 | 保留最近 30 天 |
+
+**洞察目标**：
+- 字节跳动、阿里巴巴、腾讯、智谱AI、DeepSeek
+- Google、NVIDIA、MiniMax
+
+**洞察范围**：
+- 模型、算力卡、数据存储、数据加速、Agent/智能体
+
+**查看今日报告**：
+```bash
+ls -la output/daily-insights/$(date +%Y-%m-%d)/
+```
+
+**手动执行**：
+```bash
+./scripts/daily-insight.sh
+```
+
+**查看 cron 日志**：
+```bash
+tail -f logs/cron-daily-insight.log
+```
