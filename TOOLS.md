@@ -195,3 +195,37 @@ summarize "https://example.com" --json
   "model": "openai/qwen3-max-2026-01-23"
 }
 ```
+
+---
+
+## Tavily Search
+
+### 配置信息
+
+| 项目 | 值 |
+|------|-----|
+| 技能版本 | tavily-search |
+| API Key | `TAVILY_API_KEY`（已配置在 ~/.bashrc） |
+
+### 使用方式
+
+```bash
+# 基本搜索
+node ~/.openclaw/workspace/skills/tavily-search/scripts/search.mjs "搜索内容"
+
+# 指定结果数量
+node ~/.openclaw/workspace/skills/tavily-search/scripts/search.mjs "搜索内容" -n 5
+
+# 深度搜索
+node ~/.openclaw/workspace/skills/tavily-search/scripts/search.mjs "搜索内容" --deep
+
+# 新闻搜索
+node ~/.openclaw/workspace/skills/tavily-search/scripts/search.mjs "搜索内容" --topic news
+```
+
+### 特点
+
+- AI 优化的搜索结果
+- 返回简洁、相关的内容
+- 支持新闻、深度搜索模式
+- 提供来源链接和相关度评分

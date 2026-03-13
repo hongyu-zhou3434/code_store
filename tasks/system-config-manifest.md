@@ -126,6 +126,22 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
+## 6.5. Tavily Search
+
+| 配置项 | 状态 | 说明 |
+|--------|------|------|
+| tavily-search | ✅ 已安装 | AI 优化网络搜索 |
+| API Key | ✅ 已配置 | `TAVILY_API_KEY` |
+
+**使用场景**：
+- AI 优化的网络搜索
+- 返回简洁、相关的内容
+- 支持新闻、深度搜索模式
+
+**配置文件**: `TOOLS.md` → Tavily Search 章节
+
+---
+
 ## 7. 三技能协作（异常处理）
 
 | 技能 | 职责 |
