@@ -308,3 +308,52 @@ python3 scripts/main.py create type=writer filename=新文档.docx
 ### 检索清单文件
 
 `tasks/ai-retrieval-manifest.md` - 完整检索配置与模板
+
+---
+
+## arXiv 检索技能
+
+### 配置信息
+
+| 项目 | 值 |
+|------|-----|
+| 技能版本 | 1.0.4 |
+| Python 依赖 | arxiv>=2.0.0, pymongo>=4.0.0 |
+| 路径 | `skills/arxiv/` |
+
+### 使用方式
+
+```bash
+cd /root/.openclaw/workspace/skills/arxiv
+
+# 搜索论文
+python3 arxiv_tool.py search "FlashAttention" --max 5 --sort date
+
+# 获取论文详情
+python3 arxiv_tool.py get 2603.12267
+
+# 下载 PDF
+python3 arxiv_tool.py download 2603.12267
+
+# 保存到阅读列表
+python3 arxiv_tool.py save 2603.12267
+
+# 列出已保存论文
+python3 arxiv_tool.py list
+```
+
+### 搜索参数
+
+| 参数 | 说明 |
+|------|------|
+| `--max N` | 返回结果数量 |
+| `--sort relevance/date` | 排序方式 |
+| `--json` | JSON 格式输出 |
+| `-v` | 显示摘要 |
+
+### 特点
+
+- 无需 API Key（arXiv API 免费开放）
+- 支持按相关性/日期排序
+- 可下载 PDF
+- 可保存阅读列表

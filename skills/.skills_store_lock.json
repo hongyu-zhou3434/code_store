@@ -12,6 +12,12 @@
       "zip_url": "https://lightmake.site/api/v1/download?slug=wps-skill",
       "source": "skillhub",
       "version": "1.3.0"
+    },
+    "arxiv": {
+      "name": "arXiv Research Assistant",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=arxiv",
+      "source": "skillhub",
+      "version": "1.0.4"
     }
   }
 }

@@ -48,6 +48,10 @@
     "wps-skill": {
       "version": "1.3.0",
       "installedAt": 1773389623190
+    },
+    "arxiv": {
+      "version": "1.0.4",
+      "installedAt": 1773396639198
     }
   }
 }
