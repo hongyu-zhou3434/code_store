@@ -108,9 +108,34 @@ npx skills add <owner/repo@skill> -g -y
 | 文档 | docs, readme, changelog |
 | 代码质量 | review, lint, refactor |
 
-### 异常协作流程（Find-Skills + Self-Improving-Agent）
+### Summarize 默认使用场景
 
-当任务执行遇到异常时，两个技能协同工作：
+**以下场景默认使用 Summarize 技能**：
+
+| 场景 | 触发条件 | 示例 |
+|------|----------|------|
+| 网页总结 | 用户提供 URL | "总结这个网页：https://..." |
+| 文档总结 | PDF、Word、图片等 | "总结这个 PDF 文件" |
+| YouTube 总结 | YouTube 链接 | "总结这个视频：https://youtu.be/..." |
+| 内容摘要 | 长文本需要提炼 | "帮我总结这段内容..." |
+| 文章要点提取 | 需要提取关键信息 | "这篇文章讲了什么？" |
+
+**Summarize 命令**：
+
+```bash
+# 基本用法
+summarize "URL或文件路径" --length short|medium|long
+
+# 管道输入
+echo "文本内容" | summarize - --length medium
+
+# JSON 输出
+summarize "URL" --json
+```
+
+### 异常协作流程（三技能协同）
+
+**Summarize + Find-Skills + Self-Improving-Agent 协同处理任务异常**：
 
 ```
 任务异常
@@ -129,6 +154,10 @@ npx skills add <owner/repo@skill> -g -y
     │       │       │
     │       │       └─→ 更新 AGENTS.md/TOOLS.md
     │       │
+    │       ├─→ 内容理解问题 → Summarize 辅助分析
+    │       │       │
+    │       │       └─→ 总结文档/网页 → 提取关键信息
+    │       │
     │       └─→ 流程问题 → 优化执行策略
     │               │
     │               └─→ 重新规划任务
@@ -136,15 +165,17 @@ npx skills add <owner/repo@skill> -g -y
     └─→ 汇报结果
 ```
 
-**协作触发条件**：
+**三技能协作触发条件**：
 
-| 异常类型 | self-improving-agent | Find-Skills |
-|----------|---------------------|-------------|
-| 命令失败 | ✅ 记录错误 | 搜索相关工具技能 |
-| 能力缺失 | ✅ 记录功能请求 | ✅ 搜索解决方案 |
-| 知识错误 | ✅ 记录纠正 | 可能搜索正确做法 |
-| API/工具失败 | ✅ 记录错误 | 搜索替代方案 |
-| 用户纠正 | ✅ 记录纠正 | 可能搜索最佳实践 |
+| 异常类型 | self-improving-agent | Find-Skills | Summarize |
+|----------|---------------------|-------------|-----------|
+| 命令失败 | ✅ 记录错误 | 搜索工具技能 | - |
+| 能力缺失 | ✅ 记录请求 | ✅ 搜索方案 | - |
+| API/工具失败 | ✅ 记录错误 | 搜索替代方案 | - |
+| 用户纠正 | ✅ 记录纠正 | 搜索最佳实践 | - |
+| 文档理解困难 | ✅ 记录问题 | - | ✅ 总结提取要点 |
+| 长内容处理 | - | - | ✅ 压缩提炼 |
+| 多源信息整合 | - | - | ✅ 统一总结 |
 
 **标准异常处理流程**：
 
@@ -152,11 +183,36 @@ npx skills add <owner/repo@skill> -g -y
 # 1. 记录异常到 self-improving-agent
 # 自动记录到 .learnings/ERRORS.md
 
-# 2. 分析是否需要新技能
-skillhub search "<异常相关关键词>"
+# 2. 分析异常类型，选择解决方案
 
-# 3. 如找到解决方案，安装并重试
+# 2a. 能力缺失 → Find-Skills
+skillhub search "<关键词>"
 skillhub install <skill-name>
+
+# 2b. 文档理解问题 → Summarize
+summarize "文档URL或路径" --length medium
+
+# 3. 更新学习记录
+# 标记 ERRORS.md 条目为 resolved
+# 在 LEARNINGS.md 记录解决方案
+```
+
+**协作示例**：
+
+```
+用户请求：分析某个 GitHub 仓库的实现原理
+
+1. 使用 Summarize 总结 README 和关键文档
+   → summarize "https://github.com/user/repo" --length long
+
+2. 遇到不理解的技术点
+   → Find-Skills 搜索相关技能
+   → skillhub search "技术关键词"
+
+3. 发现处理方式有误，用户纠正
+   → self-improving-agent 记录到 LEARNINGS.md
+   → 更新 TOOLS.md 或 AGENTS.md
+```
 
 # 4. 更新学习记录
 # 标记 ERRORS.md 条目为 resolved

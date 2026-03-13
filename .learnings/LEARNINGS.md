@@ -216,3 +216,37 @@ Find-Skills 与 self-improving-agent 协同处理任务异常
 - Related Files: AGENTS.md
 
 ---
+
+## [LRN-20260313-006] best_practice
+
+**Logged**: 2026-03-13T16:00:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: config
+
+### Summary
+Summarize、Find-Skills、self-improving-agent 三技能协作处理任务异常
+
+### Details
+**协作机制**：
+
+1. **self-improving-agent**：记录异常、学习纠正
+2. **Find-Skills**：搜索解决方案、安装新技能
+3. **Summarize**：文档总结、内容提炼
+
+**触发场景**：
+- 能力缺失 → Find-Skills 搜索
+- 文档理解困难 → Summarize 总结
+- 知识错误 → self-improving-agent 记录
+- 流程问题 → 优化策略重试
+
+**Summarize 默认使用**：
+- 网页总结、文档总结、YouTube 总结
+- 长文本摘要、内容要点提取
+
+### Metadata
+- Source: user_feedback
+- Tags: collaboration, skills, summarize
+- Related Files: AGENTS.md, TOOLS.md
+
+---

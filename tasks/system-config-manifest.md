@@ -120,11 +120,36 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 - YouTube 视频总结
 - 音频/视频转录总结
 
+**默认使用场景**：总结、摘要、内容提炼等场景自动使用 Summarize
+
 **配置文件**: `TOOLS.md` → Summarize CLI 章节
 
 ---
 
-## 7. 技能商店策略
+## 7. 三技能协作（异常处理）
+
+| 技能 | 职责 |
+|------|------|
+| self-improving-agent | 记录异常、学习纠正 |
+| Find-Skills | 搜索解决方案、安装新技能 |
+| Summarize | 文档总结、内容提炼 |
+
+**协作流程**：
+```
+任务异常 → self-improving-agent 记录
+        → 分析异常类型
+            → 能力缺失 → Find-Skills 搜索
+            → 文档理解困难 → Summarize 总结
+            → 流程问题 → 优化策略
+```
+
+**触发条件**：命令失败、能力缺失、API失败、用户纠正、文档理解困难
+
+**配置文件**: `AGENTS.md` → 异常协作流程 章节
+
+---
+
+## 8. 技能商店策略
 
 | 配置项 | 状态 | 说明 |
 |--------|------|------|
@@ -140,7 +165,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 8. Find-Skills 技能发现
+## 9. Find-Skills 技能发现
 
 | 配置项 | 状态 | 说明 |
 |--------|------|------|
@@ -170,7 +195,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 9. 目录结构
+## 10. 目录结构
 
 ```
 ~/workspace/
@@ -198,7 +223,7 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 ---
 
-## 10. Hooks 状态
+## 11. Hooks 状态
 
 | Hook | 状态 | 说明 |
 |------|------|------|
