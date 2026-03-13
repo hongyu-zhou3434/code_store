@@ -5,3 +5,7 @@ secrets/
 output/*.docx
 output/*.xlsx
 output/*.pptx
+
+# Daily insight logs and outputs (auto-generated)
+logs/*.log
+output/daily-insights/

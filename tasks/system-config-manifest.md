@@ -2,7 +2,7 @@
 
 系统配置清单 - 记录所有已生效的系统级配置
 
-**最后更新**: 2026-03-13 18:45:00 +08:00
+**最后更新**: 2026-03-13 19:30:00 +08:00
 
 ---
 
@@ -251,7 +251,15 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 | Cron 表达式 | `0 19 * * *` |
 | 脚本路径 | `scripts/daily-insight.sh` |
 | 输出目录 | `output/daily-insights/{日期}/` |
+| 输出格式 | **MD + DOC + PDF** |
 | 归档周期 | 保留最近 30 天 |
+
+**格式转换工具**：
+| 格式 | 工具 | 版本 |
+|------|------|------|
+| MD | Tavily Search | - |
+| DOC | WPS Skill | 1.3.0 |
+| PDF | LibreOffice | 24.2.7.2 |
 
 **洞察目标公司**：
 - 字节跳动、阿里巴巴、腾讯、智谱AI
@@ -269,6 +277,17 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 - 数据存储技术
 - 数据加速技术
 - 技术趋势洞察
+
+**输出文件示例**：
+```
+output/daily-insights/2026-03-13/
+├── 字节跳动AI洞察报告_2026-03-13.md
+├── 字节跳动AI洞察报告_2026-03-13.docx
+├── 字节跳动AI洞察报告_2026-03-13.pdf
+├── 每日AI洞察汇总_2026-03-13.md
+├── 每日AI洞察汇总_2026-03-13.docx
+└── 每日AI洞察汇总_2026-03-13.pdf
+```
 
 **手动执行**：
 ```bash

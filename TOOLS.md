@@ -392,3 +392,23 @@ ls -la output/daily-insights/$(date +%Y-%m-%d)/
 ```bash
 tail -f logs/cron-daily-insight.log
 ```
+
+### 输出格式
+
+| 格式 | 工具 | 说明 |
+|------|------|------|
+| **MD** | Tavily Search | 原始 Markdown 报告 |
+| **DOC** | WPS Skill | Word 文档格式 |
+| **PDF** | LibreOffice | PDF 格式 |
+
+### 每日生成文件
+
+```
+output/daily-insights/{日期}/
+├── {公司名}AI洞察报告_{日期}.md
+├── {公司名}AI洞察报告_{日期}.docx
+├── {公司名}AI洞察报告_{日期}.pdf
+├── 每日AI洞察汇总_{日期}.md
+├── 每日AI洞察汇总_{日期}.docx
+└── 每日AI洞察汇总_{日期}.pdf
+```

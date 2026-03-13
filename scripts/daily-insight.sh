@@ -1,6 +1,7 @@
 #!/bin/bash
 # 每日AI洞察报告生成脚本
 # 执行时间：每日 19:00
+# 输出格式：MD + DOC + PDF
 # 作者：OpenClaw AI Assistant
 
 set -e
@@ -41,26 +42,16 @@ COMPANIES=(
     "MiniMax:MiniMax"
 )
 
-# 洞察范围关键词
-TOPICS=(
-    "模型发布 新模型"
-    "算力卡 GPU HBM"
-    "数据存储 存储 架构"
-    "数据加速 推理优化"
-    "Agent 智能体"
-)
-
 # 检索工具路径
 TAVILY_SCRIPT="$WORKSPACE/skills/tavily-search/scripts/search.mjs"
-ARXIV_TOOL="$WORKSPACE/skills/arxiv/arxiv_tool.py"
 WPS_SCRIPT="$WORKSPACE/skills/wps-skill/scripts/main.py"
 
-# 生成单公司洞察报告
-generate_insight() {
+# 生成单公司洞察报告（MD格式）
+generate_insight_md() {
     local company=$1
     local company_en=$2
     
-    log "正在生成 $company 洞察报告..."
+    log "正在生成 $company 洞察报告 (MD)..."
     
     REPORT_FILE="$OUTPUT_DIR/${company}AI洞察报告_${DATE}.md"
     
@@ -80,8 +71,6 @@ HEADER
     # 使用 Tavily 搜索最新动态
     log "检索 $company 最新产品发布..."
     SEARCH_RESULT=$(node "$TAVILY_SCRIPT" "$company AI 产品 模型 $(date +%Y) 最新" -n 5 2>&1)
-    
-    # 提取关键信息并追加到报告
     echo "$SEARCH_RESULT" >> "$REPORT_FILE"
     
     cat >> "$REPORT_FILE" << CONTENT
@@ -123,24 +112,91 @@ CONTENT
 *本报告由 OpenClaw AI 助手自动生成*
 CONTENT
 
-    log "$company 洞察报告生成完成: $REPORT_FILE"
+    log "$company MD 报告生成完成"
+    echo "$REPORT_FILE"
+}
+
+# 转换 MD 为 DOC 格式
+convert_to_doc() {
+    local md_file=$1
+    local company=$2
+    
+    log "转换 $company MD → DOC..."
+    
+    local doc_file="${md_file%.md}.docx"
+    
+    cd "$WORKSPACE/skills/wps-skill"
+    python3 scripts/main.py md_to_docx file="$md_file" output="$doc_file" title="$company AI洞察报告" 2>&1 | while read line; do
+        log "  $line"
+    done
+    
+    if [ -f "$doc_file" ]; then
+        log "$company DOC 报告生成完成: $doc_file"
+    else
+        log "警告: $company DOC 转换失败"
+    fi
+}
+
+# 转换 DOC 为 PDF 格式
+convert_to_pdf() {
+    local doc_file=$1
+    local company=$2
+    
+    log "转换 $company DOC → PDF..."
+    
+    local pdf_file="${doc_file%.docx}.pdf"
+    
+    # 使用 LibreOffice 转换
+    if command -v libreoffice &> /dev/null; then
+        libreoffice --headless --convert-to pdf --outdir "$OUTPUT_DIR" "$doc_file" 2>&1 | while read line; do
+            log "  $line"
+        done
+        if [ -f "$pdf_file" ]; then
+            log "$company PDF 报告生成完成: $pdf_file"
+        else
+            log "警告: $company PDF 转换失败"
+        fi
+    elif command -v soffice &> /dev/null; then
+        soffice --headless --convert-to pdf --outdir "$OUTPUT_DIR" "$doc_file" 2>&1 | while read line; do
+            log "  $line"
+        done
+        if [ -f "$pdf_file" ]; then
+            log "$company PDF 报告生成完成: $pdf_file"
+        else
+            log "警告: $company PDF 转换失败"
+        fi
+    else
+        log "警告: LibreOffice 未安装，跳过 PDF 转换"
+    fi
 }
 
 # 主执行流程
 main() {
     log "洞察目标: ${#COMPANIES[@]} 家公司"
+    log "输出格式: MD + DOC + PDF"
     
     # 为每家公司生成报告
     for company_info in "${COMPANIES[@]}"; do
         IFS=':' read -r company_cn company_en <<< "$company_info"
-        generate_insight "$company_cn" "$company_en"
+        
+        # 1. 生成 MD 格式
+        md_file=$(generate_insight_md "$company_cn" "$company_en")
+        
+        # 2. 转换为 DOC 格式
+        convert_to_doc "$md_file" "$company_cn"
+        
+        # 3. 转换为 PDF 格式
+        doc_file="${md_file%.md}.docx"
+        if [ -f "$doc_file" ]; then
+            convert_to_pdf "$doc_file" "$company_cn"
+        fi
     done
     
     # 生成汇总报告
     log "生成每日汇总报告..."
-    SUMMARY_FILE="$OUTPUT_DIR/每日AI洞察汇总_${DATE}.md"
+    SUMMARY_MD="$OUTPUT_DIR/每日AI洞察汇总_${DATE}.md"
     
-    cat > "$SUMMARY_FILE" << SUMMARY
+    cat > "$SUMMARY_MD" << SUMMARY
 # 每日AI洞察汇总
 
 **日期**: $DATE  
@@ -154,21 +210,42 @@ SUMMARY
 
     for company_info in "${COMPANIES[@]}"; do
         IFS=':' read -r company_cn company_en <<< "$company_info"
-        echo "- **$company_cn**" >> "$SUMMARY_FILE"
+        echo "- **$company_cn**" >> "$SUMMARY_MD"
     done
     
-    cat >> "$SUMMARY_FILE" << SUMMARY
+    cat >> "$SUMMARY_MD" << SUMMARY
 
 ## 二、报告列表
 
+### Markdown 格式
 SUMMARY
 
     for company_info in "${COMPANIES[@]}"; do
         IFS=':' read -r company_cn company_en <<< "$company_info"
-        echo "- [$company_cn AI洞察报告](${company_cn}AI洞察报告_${DATE}.md)" >> "$SUMMARY_FILE"
+        echo "- [$company_cn AI洞察报告](${company_cn}AI洞察报告_${DATE}.md)" >> "$SUMMARY_MD"
     done
     
-    cat >> "$SUMMARY_FILE" << SUMMARY
+    cat >> "$SUMMARY_MD" << SUMMARY
+
+### Word 格式
+SUMMARY
+
+    for company_info in "${COMPANIES[@]}"; do
+        IFS=':' read -r company_cn company_en <<< "$company_info"
+        echo "- $company_cn AI洞察报告_${DATE}.docx" >> "$SUMMARY_MD"
+    done
+    
+    cat >> "$SUMMARY_MD" << SUMMARY
+
+### PDF 格式
+SUMMARY
+
+    for company_info in "${COMPANIES[@]}"; do
+        IFS=':' read -r company_cn company_en <<< "$company_info"
+        echo "- $company_cn AI洞察报告_${DATE}.pdf" >> "$SUMMARY_MD"
+    done
+    
+    cat >> "$SUMMARY_MD" << SUMMARY
 
 ## 三、洞察范围
 
@@ -187,7 +264,14 @@ SUMMARY
 *本报告由 OpenClaw AI 助手自动生成*
 SUMMARY
 
-    log "汇总报告生成完成: $SUMMARY_FILE"
+    # 转换汇总报告为 DOC 和 PDF
+    convert_to_doc "$SUMMARY_MD" "汇总"
+    summary_doc="${SUMMARY_MD%.md}.docx"
+    if [ -f "$summary_doc" ]; then
+        convert_to_pdf "$summary_doc" "汇总"
+    fi
+    
+    log "汇总报告生成完成"
     
     # 清理超过30天的旧报告
     log "清理30天前的旧报告..."
@@ -195,6 +279,13 @@ SUMMARY
     
     log "=== 每日AI洞察任务完成 ==="
     log "报告目录: $OUTPUT_DIR"
+    
+    # 统计生成文件
+    md_count=$(find "$OUTPUT_DIR" -name "*.md" -type f 2>/dev/null | wc -l)
+    doc_count=$(find "$OUTPUT_DIR" -name "*.docx" -type f 2>/dev/null | wc -l)
+    pdf_count=$(find "$OUTPUT_DIR" -name "*.pdf" -type f 2>/dev/null | wc -l)
+    
+    log "生成文件统计: MD=${md_count}, DOC=${doc_count}, PDF=${pdf_count}"
 }
 
 # 执行
