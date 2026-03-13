@@ -138,6 +138,11 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 
 **安装前摘要**：必须汇报来源、版本、功能、风险信号
 
+**异常协作（Find-Skills + Self-Improving-Agent）**：
+- 任务异常 → self-improving-agent 记录 → Find-Skills 搜索解决方案
+- 能力缺失 → 自动搜索并安装新技能
+- 协作触发：命令失败、能力缺失、API失败、用户纠正
+
 **配置文件**: `AGENTS.md` → Skill Discovery 章节
 
 ---

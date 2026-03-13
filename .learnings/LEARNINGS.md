@@ -180,3 +180,39 @@ Find-Skills 技能已启用，自动应用于所有任务的技能发现
 - Related Files: AGENTS.md, tasks/system-config-manifest.md
 
 ---
+
+## [LRN-20260313-005] best_practice
+
+**Logged**: 2026-03-13T15:50:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: config
+
+### Summary
+Find-Skills 与 self-improving-agent 协同处理任务异常
+
+### Details
+**协作流程**：
+
+1. **任务异常发生**
+   - self-improving-agent 记录到 `.learnings/ERRORS.md`
+
+2. **分析异常类型**
+   - **能力缺失** → Find-Skills 搜索解决方案 → 安装新技能 → 重试
+   - **知识错误** → 记录到 `.learnings/LEARNINGS.md` → 更新文档
+   - **流程问题** → 优化执行策略 → 重新规划
+
+3. **协作触发条件**：
+   | 异常类型 | self-improving-agent | Find-Skills |
+   |----------|---------------------|-------------|
+   | 命令失败 | ✅ 记录错误 | 搜索工具技能 |
+   | 能力缺失 | ✅ 记录请求 | ✅ 搜索方案 |
+   | API失败 | ✅ 记录错误 | 搜索替代方案 |
+   | 用户纠正 | ✅ 记录纠正 | 搜索最佳实践 |
+
+### Metadata
+- Source: user_feedback
+- Tags: collaboration, exception-handling, self-improvement
+- Related Files: AGENTS.md
+
+---

@@ -108,6 +108,61 @@ npx skills add <owner/repo@skill> -g -y
 | 文档 | docs, readme, changelog |
 | 代码质量 | review, lint, refactor |
 
+### 异常协作流程（Find-Skills + Self-Improving-Agent）
+
+当任务执行遇到异常时，两个技能协同工作：
+
+```
+任务异常
+    │
+    ├─→ self-improving-agent 记录异常
+    │       │
+    │       └─→ .learnings/ERRORS.md
+    │
+    ├─→ 分析异常类型
+    │       │
+    │       ├─→ 能力缺失 → Find-Skills 搜索解决方案
+    │       │       │
+    │       │       └─→ 安装新技能 → 重试任务
+    │       │
+    │       ├─→ 知识错误 → .learnings/LEARNINGS.md
+    │       │       │
+    │       │       └─→ 更新 AGENTS.md/TOOLS.md
+    │       │
+    │       └─→ 流程问题 → 优化执行策略
+    │               │
+    │               └─→ 重新规划任务
+    │
+    └─→ 汇报结果
+```
+
+**协作触发条件**：
+
+| 异常类型 | self-improving-agent | Find-Skills |
+|----------|---------------------|-------------|
+| 命令失败 | ✅ 记录错误 | 搜索相关工具技能 |
+| 能力缺失 | ✅ 记录功能请求 | ✅ 搜索解决方案 |
+| 知识错误 | ✅ 记录纠正 | 可能搜索正确做法 |
+| API/工具失败 | ✅ 记录错误 | 搜索替代方案 |
+| 用户纠正 | ✅ 记录纠正 | 可能搜索最佳实践 |
+
+**标准异常处理流程**：
+
+```bash
+# 1. 记录异常到 self-improving-agent
+# 自动记录到 .learnings/ERRORS.md
+
+# 2. 分析是否需要新技能
+skillhub search "<异常相关关键词>"
+
+# 3. 如找到解决方案，安装并重试
+skillhub install <skill-name>
+
+# 4. 更新学习记录
+# 标记 ERRORS.md 条目为 resolved
+# 在 LEARNINGS.md 记录解决方案
+```
+
 ## Task Execution Architecture
 
 ### 主线程/子线程模式
