@@ -173,6 +173,58 @@ python3 scripts/main.py create type=writer filename=文档.docx
 python3 scripts/main.py batch_convert dir=目录 format=pdf
 ```
 
+### AI 技术洞察任务流程
+
+**当用户请求AI公司/技术洞察时，执行标准检索流程**：
+
+```
+检索任务触发
+    │
+    ├─→ 1. 学术源检索
+    │       ├── arXiv (cs.AI/cs.CL/cs.LG)
+    │       └── Papers with Code
+    │
+    ├─→ 2. 企业博客检索
+    │       ├── OpenAI Blog
+    │       ├── Google AI Blog
+    │       ├── NVIDIA Developer
+    │       └── 其他公司官方博客
+    │
+    ├─→ 3. 新闻媒体检索
+    │       ├── 量子位/机器之心/新智元
+    │       └── VentureBeat/TechCrunch
+    │
+    ├─→ 4. 社区论坛检索
+    │       ├── Reddit r/MachineLearning
+    │       └── Hugging Face
+    │
+    └─→ 5. 生成洞察报告
+            ├── 核心产品概览
+            ├── 数据存储技术
+            ├── 数据加速技术
+            └── 核心洞察
+```
+
+**检索关键词模板**：
+
+```bash
+# 公司产品检索
+"{公司名} AI 产品 模型 2025 2026"
+
+# 技术主题检索
+"{关键词} 架构 存储 加速"
+
+# 存储技术
+"HBM NVLink GPU memory storage"
+
+# 加速技术
+"inference optimization quantization FlashAttention"
+```
+
+**报告输出路径**：`output/{公司名}AI洞察报告_{日期}.docx`
+
+**检索配置文件**：`tasks/ai-retrieval-manifest.md`
+
 ### 异常协作流程（三技能协同）
 
 **Summarize + Find-Skills + Self-Improving-Agent 协同处理任务异常**：

@@ -274,3 +274,37 @@ python3 scripts/main.py create type=writer filename=新文档.docx
 - WPS 365 云端功能需要配置 `app_id` 和 `app_secret`
 - 图形界面自动化（pyautogui）在无 GUI 环境下不可用
 - 文档格式转换依赖 python-docx、openpyxl、python-pptx
+
+---
+
+## AI 技术洞察检索配置
+
+### 检索源优先级
+
+| 类型 | 首选源 | 备选源 |
+|------|--------|--------|
+| 学术论文 | arXiv | Papers with Code |
+| 企业动态 | 官方博客 | 新闻媒体 |
+| 中国资讯 | 量子位 | 机器之心 |
+| 社区讨论 | Reddit | Hugging Face |
+
+### 标准检索流程
+
+```
+1. 学术源（arXiv → Papers with Code）
+2. 企业博客（官方 → 行业媒体）
+3. 新闻媒体（量子位 → VentureBeat）
+4. 社区论坛（Reddit → GitHub）
+```
+
+### 检索关键词库
+
+**存储技术**：HBM, NVLink, GPU Memory, KV Cache, RDMA
+
+**加速技术**：FlashAttention, Quantization, TensorRT, MoE, CUDA
+
+**公司名**：OpenAI, Google, Meta, NVIDIA, DeepSeek, Qwen, GLM, MiniMax
+
+### 检索清单文件
+
+`tasks/ai-retrieval-manifest.md` - 完整检索配置与模板
