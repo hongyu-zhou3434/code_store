@@ -250,3 +250,40 @@ Summarize、Find-Skills、self-improving-agent 三技能协作处理任务异常
 - Related Files: AGENTS.md, TOOLS.md
 
 ---
+
+## [LRN-20260313-007] best_practice
+
+**Logged**: 2026-03-13T16:20:00+08:00
+**Priority**: high
+**Status**: resolved
+**Area**: config
+
+### Summary
+WPS Office Skill 默认用于本地文档处理任务
+
+### Details
+**配置规则**：
+
+1. **使用限制**：
+   - ✅ 仅处理本地文档操作
+   - ❌ 不使用 WPS 365 云端功能
+
+2. **默认触发场景**：
+   - 文档创建（Word/Excel/PPT）
+   - Markdown 转换（MD → Word/Excel/PPT）
+   - 格式转换（文档格式互转）
+   - 图文排版（图片插入、图文混排）
+   - 批量处理（批量文档操作）
+
+3. **主要功能**：
+   - Markdown ↔ Word/Excel/PPT 转换
+   - 文档创建与格式转换
+   - 图文混排
+   - 批量处理
+
+### Metadata
+- Source: user_feedback
+- Tags: wps, document, local-processing
+- Related Files: AGENTS.md, TOOLS.md
+
+---

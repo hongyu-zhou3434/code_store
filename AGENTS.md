@@ -133,6 +133,46 @@ echo "文本内容" | summarize - --length medium
 summarize "URL" --json
 ```
 
+### WPS Office Skill 默认使用场景
+
+**以下场景默认使用 WPS Office Skill 处理本地文档**：
+
+| 场景 | 触发条件 | 示例 |
+|------|----------|------|
+| 文档创建 | 创建 Word/Excel/PPT | "创建一个 Word 文档" |
+| Markdown 转换 | MD 转 Word/Excel/PPT | "把这个 Markdown 转成 Word" |
+| 格式转换 | 文档格式互转 | "把 docx 转成 pdf" |
+| 图文排版 | 图片插入、图文混排 | "在文档中插入图片" |
+| 批量处理 | 批量文档操作 | "批量转换这些文件" |
+
+**WPS 使用限制**：
+- ✅ 仅处理本地文档操作
+- ❌ 不使用 WPS 365 云端功能
+
+**WPS 命令**：
+
+```bash
+cd /root/.openclaw/workspace/skills/wps-skill
+
+# Markdown 转 Word
+python3 scripts/main.py md_to_docx file=输入.md output=输出.docx title="标题"
+
+# Markdown 转 Excel
+python3 scripts/main.py md_to_xlsx file=输入.md output=输出.xlsx
+
+# Markdown 转 PPT
+python3 scripts/main.py md_to_pptx file=输入.md output=输出.pptx
+
+# Word 转 Markdown
+python3 scripts/main.py docx_to_md file=输入.docx output=输出.md
+
+# 创建文档
+python3 scripts/main.py create type=writer filename=文档.docx
+
+# 批量转换
+python3 scripts/main.py batch_convert dir=目录 format=pdf
+```
+
 ### 异常协作流程（三技能协同）
 
 **Summarize + Find-Skills + Self-Improving-Agent 协同处理任务异常**：

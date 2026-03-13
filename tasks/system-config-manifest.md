@@ -149,9 +149,21 @@ git clone git@github.com:{owner}/{repo}.git {target-dir} --depth 1
 | wps-skill | ✅ 已安装 | v1.3.0 |
 | Python 依赖 | ✅ 已安装 | python-docx, openpyxl, python-pptx |
 | 本地文档处理 | ✅ 可用 | Markdown ↔ Word/Excel/PPT |
+| 云端功能 | ❌ 禁用 | 仅本地文档处理 |
 
 **主要功能**：
 - Markdown ↔ Word/Excel/PPT 转换
+- 文档创建与格式转换
+- 图文混排
+- 批量处理
+
+**使用限制**：仅处理本地文档，不使用 WPS 365 云端功能
+
+**默认使用场景**：
+- 文档创建、Markdown 转换、图文排版等任务
+- 自动使用 WPS Office Skill 处理
+
+**配置文件**: `TOOLS.md` → WPS Office Skill 章节
 - 文档创建与格式转换
 - 图文混排
 - 批量处理
