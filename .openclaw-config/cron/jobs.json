@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "a0c21add-35c6-4109-a819-e4d1f3e6665c",
+      "name": "每日技术洞察",
+      "enabled": true,
+      "createdAtMs": 1773566212932,
+      "updatedAtMs": 1773569829454,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "tz": "Asia/Shanghai"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "执行每日技术洞察任务：1. 搜索最新的 AI/LLM 技术动态 2. 总结 3-5 条最重要的技术新闻或突破 3. 将总结结果发送到邮箱 273477656@qq.com，主题为【每日技术洞察-日期】。使用命令: openclaw-mail 273477656@qq.com \"【每日技术洞察-$(date +%Y-%m-%d)】\" \"<总结内容>\"",
+        "model": "qwencode/glm-5",
+        "lightContext": true
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1773619200000,
+        "lastRunAtMs": 1773566229445,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 3600009,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
+      }
+    }
+  ]
+}
